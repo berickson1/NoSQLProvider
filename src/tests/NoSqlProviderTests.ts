@@ -1270,6 +1270,49 @@ describe('NoSqlProvider', function () {
                             });
                         });
                     });
+
+                    it('Removing FTS index  - Downgrade', () => {
+                        return openProvider(provName, {
+                            version: 2,
+                            stores: [
+                                {
+                                    name: 'test',
+                                    primaryKeyPath: 'id',
+                                    indexes: [
+                                        {
+                                            name: 'a',
+                                            keyPath: 'content',
+                                            fullText: true
+                                        }
+                                    ]
+                                }
+                            ]
+                        }, true).then(prov => {
+                            return prov.put('test', { id: 'abc', content: 'ghi' }).then(() => {
+                                return prov.close();
+                            });
+                        }).then(() => {
+                            return openProvider(provName, {
+                                version: 1,
+                                stores: [
+                                    {
+                                        name: 'test',
+                                        primaryKeyPath: 'id'
+                                    }
+                                ]
+                            }, false).then(prov => {
+                                const p1 = prov.get<any>('test', 'abc').then(item => {
+                                    assert.equal(item, undefined);
+                                });
+                                const p2 = prov.fullTextSearch<any>('test', 'a', 'ghi').then(items => {
+                                    assert.equal(items.length, 0);
+                                });
+                                return SyncTasks.all([p1, p2]).then(() => {
+                                    return prov.close();
+                                });
+                            });
+                        });
+                    });
                 });
             }
 
