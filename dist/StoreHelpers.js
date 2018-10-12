@@ -56,8 +56,8 @@ var SimpleTransactionStoreHelper = /** @class */ (function () {
         var promise = this._store.get(key);
         return exports.ErrorCatcher ? promise.catch(exports.ErrorCatcher) : promise;
     };
-    SimpleTransactionStoreHelper.prototype.getAll = function () {
-        var promise = this._store.openPrimaryKey().getAll();
+    SimpleTransactionStoreHelper.prototype.getAll = function (sortOrder) {
+        var promise = this._store.openPrimaryKey().getAll(sortOrder);
         return exports.ErrorCatcher ? promise.catch(exports.ErrorCatcher) : promise;
     };
     SimpleTransactionStoreHelper.prototype.getOnly = function (key, reverseOrSortOrder, limit, offset) {

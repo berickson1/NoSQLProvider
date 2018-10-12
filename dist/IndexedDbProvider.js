@@ -659,10 +659,10 @@ var IndexedDbIndex = /** @class */ (function (_super) {
         }
     };
     IndexedDbIndex.prototype.getAll = function (reverseOrSortOrder, limit, offset) {
-        // ************************* Don't change this null to undefined, IE chokes on it... *****************************
-        // ************************* Don't change this null to undefined, IE chokes on it... *****************************
-        // ************************* Don't change this null to undefined, IE chokes on it... *****************************
         var reverse = reverseOrSortOrder === true || reverseOrSortOrder === NoSqlProvider.QuerySortOrder.Reverse;
+        // ************************* Don't change this null to undefined, IE chokes on it... *****************************
+        // ************************* Don't change this null to undefined, IE chokes on it... *****************************
+        // ************************* Don't change this null to undefined, IE chokes on it... *****************************
         var req = this._store.openCursor(null, reverse ? 'prev' : 'next');
         return this._resolveCursorResult(req, limit, offset);
     };

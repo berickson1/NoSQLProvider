@@ -33,7 +33,7 @@ export declare class SimpleTransactionStoreHelper<StoreName extends string, Obje
     protected _store: NoSqlProvider.DbStore;
     constructor(_store: NoSqlProvider.DbStore, storeName: DBStore<StoreName, ObjectType, KeyFormat>);
     get(key: KeyFormat): SyncTasks.Promise<ObjectType | undefined>;
-    getAll(): SyncTasks.Promise<ObjectType[]>;
+    getAll(sortOrder?: NoSqlProvider.QuerySortOrder): SyncTasks.Promise<ObjectType[]>;
     getOnly(key: KeyFormat, reverseOrSortOrder?: boolean | NoSqlProvider.QuerySortOrder, limit?: number, offset?: number): SyncTasks.Promise<ObjectType[]>;
     getRange(keyLowRange: KeyFormat, keyHighRange: KeyFormat, lowRangeExclusive?: boolean, highRangeExclusive?: boolean, reverseOrSortOrder?: boolean | NoSqlProvider.QuerySortOrder, limit?: number, offset?: number): SyncTasks.Promise<ObjectType[]>;
     getMultiple(keyOrKeys: KeyFormat | KeyFormat[]): SyncTasks.Promise<ObjectType[]>;
